@@ -9,3 +9,5 @@ sentence-transformers
 unstructured
 langchain-huggingface
 tenacity
+chainlit
+asgiref
