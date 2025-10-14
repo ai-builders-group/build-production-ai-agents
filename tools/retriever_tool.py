@@ -1,66 +1,98 @@
 # tools/retriever_tool.py
 
+import os
+from pathlib import Path
 from langchain.tools import tool
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from pydantic import BaseModel, Field
 
-# Define the path to our pre-built knowledge base.
-VECTORSTORE_PATH = "./vectorstore"
-
-# --- 1. Eager Loading of the Vectorstore ---
-# This block runs *once* when the script is first imported. It loads the
-# entire vectorstore from disk into memory, making it instantly available
-# for any subsequent tool calls. This is known as "eager loading".
-print("--- LOADING VECTORSTORE ---")
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-try:
-    # We load the FAISS index from the specified path.
-    db = FAISS.load_local(
-        VECTORSTORE_PATH,
-        embeddings,
-        # This flag is required for loading FAISS indexes with custom embeddings.
-        allow_dangerous_deserialization=True,
-    )
-    # The .as_retriever() method creates a standardized interface for searching.
-    retriever = db.as_retriever()
-    print("--- VECTORSTORE LOADED SUCCESSFULLY ---")
-except Exception as e:
-    # If loading fails, we set the retriever to None to handle the error gracefully.
-    print(f"--- FAILED TO LOAD VECTORSTORE: {e} ---")
-    retriever = None
+# --- 1. Security Sandbox Configuration ---
+# This block defines the "jail" or "sandbox" for our tool. It calculates
+# the absolute path to the project's 'source_code' directory. Any attempt
+# to access files outside this directory will be blocked.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+ALLOWED_DIRECTORY = PROJECT_ROOT / "source_code"
+VECTORSTORE_PATH = PROJECT_ROOT / "vectorstore"
 
 
-# --- 2. Define the Tool's Input Schema ---
-# We use Pydantic to define a clear, machine-readable schema for the tool's
-# input. The 'description' field is crucial, as it's what the LLM reads
-# to understand what information to provide for the 'query' argument.
+# --- 2. Tool Input Schema ---
+# Defines the expected input for our tool using Pydantic. This provides
+# clear validation, typing, and documentation for the tool's interface.
 class RetrieverInput(BaseModel):
     query: str = Field(description="The query to search for in the codebase.")
 
 
-# --- 3. Create the Tool Implementation ---
+# --- 3. Tool Implementation: The Hardened Retriever ---
 @tool("codebase-retriever", args_schema=RetrieverInput)
 def codebase_retriever(query: str) -> str:
     """
     Searches the codebase to find relevant code snippets based on the query.
-    Returns the retrieved code snippets as a formatted string.
+    This tool is hardened with three professional patterns:
+    1. Lazy Loading: Loads the vectorstore only when needed.
+    2. Sandboxing: Validates file paths to prevent unauthorized access.
+    3. Graceful Failure: Handles errors without crashing the agent.
     """
-    # This is a guard clause. If the vectorstore failed to load, the tool
-    # will return a helpful error message instead of crashing.
-    if retriever is None:
-        return "Error: Vectorstore not loaded. Please run the indexing script."
-
-    # The core logic: use the retriever to find documents similar to the query.
-    retrieved_docs = retriever.invoke(query)
-
-    # Format the retrieved documents into a clean, readable string. This is
-    # what the LLM will see as the tool's output.
-    formatted_docs = []
-    for i, doc in enumerate(retrieved_docs):
-        source = doc.metadata.get("source", "Unknown")
-        formatted_docs.append(
-            f"--- Code Snippet {i + 1} (Source: {source}) ---\n{doc.page_content}"
+    try:
+        # --- 3A. Lazy Loading the Vectorstore ---
+        # The expensive I/O operation to load the vectorstore happens here, inside
+        # the tool call. This ensures the main application starts instantly.
+        print("\n--- Lazily loading vectorstore... ---")
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
+        db = FAISS.load_local(
+            str(VECTORSTORE_PATH), embeddings, allow_dangerous_deserialization=True
+        )
+        retriever = db.as_retriever()
+        print("--- Vectorstore loaded successfully. ---")
 
-    return "\n\n".join(formatted_docs)
+        retrieved_docs = retriever.invoke(query)
+
+        # --- 3B. Process and Securely Validate Each Document ---
+        formatted_docs = []
+        for i, doc in enumerate(retrieved_docs):
+            source_path_str = doc.metadata.get("source", "Unknown")
+
+            # --- THE CORE SANDBOX VALIDATION ---
+            # This is the heart of our "hands" security layer. We resolve the
+            # path of each retrieved document and check if it is safely
+            # within our pre-defined ALLOWED_DIRECTORY.
+            try:
+                resolved_path = Path(source_path_str).resolve()
+                if not resolved_path.is_relative_to(ALLOWED_DIRECTORY):
+                    print(
+                        f"⚠️ SECURITY WARNING: Attempted to access restricted path: {source_path_str}"
+                    )
+                    # If the path is outside the sandbox, we return an access denied
+                    # message instead of the file's content.
+                    formatted_docs.append(
+                        f"--- ACCESS DENIED: Cannot display content from restricted path: {source_path_str} ---"
+                    )
+                    continue
+            except Exception:
+                # Handle cases where the source path might be malformed.
+                print(
+                    f"⚠️ SECURITY WARNING: Invalid source path encountered: {source_path_str}"
+                )
+                formatted_docs.append(f"--- ACCESS DENIED: Invalid source path ---")
+                continue
+            # ------------------------------------
+
+            formatted_docs.append(
+                f"--- Code Snippet {i + 1} (Source: {source_path_str}) ---\n{doc.page_content}"
+            )
+
+        # --- 3C. Format and Return the Final Output ---
+        if not formatted_docs:
+            return "No relevant and accessible code snippets found in the 'source_code' directory."
+
+        return "\n\n".join(formatted_docs)
+
+    except Exception as e:
+        # --- 3D. Graceful Failure Handling ---
+        # If any part of the process fails (e.g., the vectorstore doesn't exist),
+        # this block prevents the entire agent from crashing and provides a
+        # helpful error message to the user. This is a key resiliency pattern.
+        print(f"--- Error during vectorstore load or retrieval: {e} ---")
+        return "Error: Could not access the codebase vectorstore. It may not have been created yet. Please run the indexing script."
