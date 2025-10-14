@@ -8,3 +8,4 @@ faiss-cpu
 sentence-transformers
 unstructured
 langchain-huggingface
+tenacity
