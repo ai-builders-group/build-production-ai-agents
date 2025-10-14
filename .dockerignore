@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+env/
+venv/
+.venv/
+
+# IDE and OS-specific files
+.idea/
+.vscode/
+.DS_Store
+
+# Data artifacts that will be BUILT inside the container
+vectorstore/
