@@ -4,3 +4,7 @@ langchain-openai
 langsmith
 langgraph
 langchain_community
+faiss-cpu
+sentence-transformers
+unstructured
+langchain-huggingface
