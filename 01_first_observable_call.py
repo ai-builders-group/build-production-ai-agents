@@ -16,7 +16,7 @@ llm = ChatOpenAI(
     # The API key is loaded securely from the environment.
     api_key=os.getenv("OPENROUTER_API_KEY"),
     # We explicitly select our professional workhorse model.
-    #     model="google/gemini-2.5-flash",
+    model="google/gemini-2.5-flash",
 )
 
 
