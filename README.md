@@ -1,72 +1,99 @@
-# AI Agent Foundations: Official Course Repository
+# Build a Production-Ready AI Agent
 
-Welcome to the official source code repository for the **AI Agent Foundations: The Codebase Analyst** course. This repository is your primary tool and the single source of truth for all code related to the curriculum.
-
-Congratulations on taking this step to become a professional AI architect. Let's get you oriented.
+**A professional, project-based curriculum to build, harden, and deploy an AI Codebase Analyst using LangGraph, Pydantic, and Docker.**
 
 ---
 
-## 🚀 Understanding the Repository Structure
+## 🚀 About This Project
+This repository is the official "Open Source Lab" for the book **[Production-Ready AI Agents](https://www.amazon.com/dp/B0G43PPDSP)**.
 
-This repository is professionally structured to give you the best possible learning experience. It contains three key components you need to understand:
+Most AI tutorials stop at a Jupyter Notebook. This project starts there, but quickly moves into production engineering. You will build **The AI Codebase Analyst**: an autonomous agent that ingests a local code repository, understands the file structure, and answers complex queries about the code via an interactive UI.
 
-*   🌳 **`main` Branch:** This branch contains the **100% completed, final solution** for the entire project. It's your ultimate reference guide. If you ever get completely stuck, you can review the code on this branch to see the finished product.
-
-*   🌱 **`starter` Branch (Default):** This is the **clean starting point for your project**. When you first clone the repository, you will be on this branch. It contains only the necessary boilerplate files, allowing you to build the entire application from the ground up, just like in the lessons.
-
-*   🏷️ **`lesson-X-complete` Tags:** We have created a `tag` for every lesson. These are immutable snapshots of the repository at the exact moment a lesson is completed. This is the **most powerful feature for checking your work**, as it allows you to see the correct code for any specific stage of the course without spoiling future lessons.
-
----
-
-## 💻 How to Use This Repository
-
-Follow this workflow for a smooth and effective learning process.
-
-### Step 1: Clone the Repository
-Open your terminal, navigate to where you want to store your project, and run the clone command.
-
-```bash
-git clone https://github.com/ai-builders-group/course-foundations.git
-cd course-foundations
-```
-You will automatically be on the `starter` branch, ready to begin.
-
-### Step 2: Starting the Course
-You're all set! With the `starter` branch checked out, simply follow the instructions in your `Lesson 1_...pdf` to set up your virtual environment, create your `.env` file, and start writing your first script.
-
-### Step 3: Checking Your Work (When Needed)
-If you get stuck or want to compare your code against the official solution, you have two options:
-
-**A) To view the code at the end of a specific lesson (Recommended):**
-Use the lesson tags. For example, to see the complete code for Lesson 5, run:
-```bash
-git checkout lesson-5-complete
-```
-*💡 **Pro Tip:** After you're done reviewing, you can return to your own work by running `git checkout starter`.*
-
-**B) To view the final, 100% completed project:**
-Switch to the `main` branch:
-```bash
-git checkout main
-```
+### The "Lab" vs. The "Textbook"
+*   **This Repository (The How):** Provides the code, the patterns, and the step-by-step implementation guide.
+*   **The Book (The Why):** Covers the architectural theory, state machine design patterns, and the deep engineering decisions behind building scalable agents. [Get the book here](https://www.amazon.com/dp/B0G43PPDSP).
 
 ---
 
-## ❓ Getting Official Course Support
+## 🛠️ The Tech Stack
+We define "Production-Ready" as **Stateful, Reliable, and Observable.**
 
-If you have a direct question about the course content, run into a bug in the code, or need clarification on a lesson, please use the **Issues** tab in this repository.
+*   **🧠 Logic:** [LangGraph](https://langchain-ai.github.io/langgraph/) (Stateful orchestration)
+*   **🛡️ Reliability:** [Pydantic](https://docs.pydantic.dev/) (Structured output & validation)
+*   **💾 Memory:** FAISS & Vector Stores (RAG)
+*   **🖥️ Interface:** [Chainlit](https://docs.chainlit.io/get-started/overview) (Interactive UI)
+*   **🚀 Deployment:** Docker & Google Cloud Run
 
-This is the official support channel. Asking questions here helps us build a searchable knowledge base that benefits all current and future students.
+---
 
-## 💬 Join the Community on Discord
+## 📚 The Curriculum
 
-While GitHub Issues is for direct course support, our Discord is the heart of the AI Builders community. It's the perfect place to connect with fellow engineers, share your work, and discuss broader AI topics.
+The course is divided into 4 sprints. You can find the detailed instructions for each lesson in the `/curriculum` folder.
 
-### What You'll Find Inside:
-*   🚀 **#show-your-work:** Get feedback on your projects from a community of professional engineers.
-*   💼 **#career-and-growth:** Level up your skills and connect with a curated network of peers.
-*   📖 **#learning-pathways:** Go beyond tutorials with expert advice on what to learn next.
+**Module 1: The Core Engine**
+*   **Lesson 1:** Professional Workspace Setup & Observability
+*   **Lesson 2:** The Agent as a State Machine (LangGraph)
+*   **Lesson 3:** Binding Tools & Reasoning
 
-[➡️ **Join the AI Builders HQ Discord**](https://hq.aibuildersgroup.ai/)
+**Module 2: The Knowledge Base (RAG)**
+*   **Lesson 4:** Ingestion Pipeline (Load, Split, Embed, Store)
+*   **Lesson 5:** The Retrieval Tool (Connecting the Brain to the Memory)
 
-We are incredibly excited to see what you build. Now, let's get started!
+**Module 3: Production Pillars**
+*   **Lesson 6:** Structured Output (Enforcing Pydantic Schemas)
+*   **Lesson 7:** Security & Guardrails (Preventing Injection)
+*   **Lesson 8:** Resilience (Retries, Fallbacks, and Error Handling)
+
+**Module 4: Shipping It**
+*   **Lesson 9:** The Interactive UI (Chainlit Integration)
+*   **Lesson 10:** Containerization (Docker & CI/CD)
+
+---
+
+## 👨‍💻 How to Use This Repository
+
+This repo uses **Git Tags** to manage the curriculum. You can code along from scratch, or jump to the solution for any specific lesson.
+
+### 1. Start Here
+Clone the repo. You will land on the `starter` branch. This contains the boilerplate infrastructure but no solution code.
+
+```
+git clone https://github.com/ai-builders-group/build-production-ai-agents.git
+cd build-production-ai-agents
+```
+
+Open the file `curriculum/START_HERE_Welcome.pdf` to begin.
+
+
+### 2. Stuck? Check the Solution
+We have created immutable tags for the completion of every lesson. If you are stuck on Lesson 3, you can peek at the solution code.
+
+**To view the solution for a specific lesson:**
+```git checkout lesson-3-complete```
+
+**To return to your workspace:**
+```git checkout starter```
+
+### 3. The Final Build
+To see the finished, 100% production-ready application:
+```git checkout main```
+
+---
+
+## 💬 Community & Support
+
+You are not building alone.
+
+*   **Need Help?** Join 500+ AI Engineers in the `#course-help` channel in our Discord.
+*   **Found a bug?** Open a GitHub Issue.
+*   **Discussion:** Share your build and get feedback.
+
+👉 **[Join the AI Builders HQ Discord](YOUR_DISCORD_LINK_HERE)**
+
+---
+
+## License
+This project is open-source (MIT). Feel free to fork it, break it, and rebuild it.
+
+**Built by [AI Builders Group](https://aibuildersgroup.ai)**  
+*Architecting the future of AI Agents.*
