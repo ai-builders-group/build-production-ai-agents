@@ -88,7 +88,7 @@ You are not building alone.
 *   **Found a bug?** Open a GitHub Issue.
 *   **Discussion:** Share your build and get feedback.
 
-👉 **[Join the AI Builders HQ Discord]([YOUR_DISCORD_LINK_HERE](https://hq.aibuildersgroup.ai/))**
+👉 **[Join the AI Builders HQ Discord](https://hq.aibuildersgroup.ai/)**
 
 ---
 
