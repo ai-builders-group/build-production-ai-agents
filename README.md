@@ -84,7 +84,7 @@ To see the finished, 100% production-ready application:
 
 You are not building alone.
 
-*   **Need Help?** Join the `#course-help` channel in our Discord.
+*   **Need Help?** Join the `#💬-course-discussion` channel in our Discord.
 *   **Found a bug?** Open a GitHub Issue.
 *   **Discussion:** Share your build and get feedback.
 
