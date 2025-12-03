@@ -84,11 +84,11 @@ To see the finished, 100% production-ready application:
 
 You are not building alone.
 
-*   **Need Help?** Join 500+ AI Engineers in the `#course-help` channel in our Discord.
+*   **Need Help?** Join the `#course-help` channel in our Discord.
 *   **Found a bug?** Open a GitHub Issue.
 *   **Discussion:** Share your build and get feedback.
 
-👉 **[Join the AI Builders HQ Discord](YOUR_DISCORD_LINK_HERE)**
+👉 **[Join the AI Builders HQ Discord]([YOUR_DISCORD_LINK_HERE](https://hq.aibuildersgroup.ai/))**
 
 ---
 
