@@ -88,12 +88,12 @@ You are not building alone.
 *   **Found a bug?** Open a GitHub Issue.
 *   **Discussion:** Share your build and get feedback.
 
-👉 **[Join the AI Builders HQ Discord](https://hq.aibuildersgroup.ai/)**
+👉 **[Join the AI Builders HQ Discord](https://abg.arizenai.com/community/)**
 
 ---
 
 ## License
 This project is open-source (MIT). Feel free to fork it, break it, and rebuild it.
 
-**Built by [AI Builders Group](https://aibuildersgroup.ai)**  
+**Built by [AI Builders Group](https://abg.arizenai.com/)**  
 *Architecting the future of AI Agents.*
