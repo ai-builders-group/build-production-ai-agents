@@ -7,6 +7,8 @@
 ## 🚀 About This Project
 This repository is the official "Open Source Lab" for the book **[Production-Ready AI Agents](https://www.amazon.com/dp/B0G43PPDSP)**.
 
+*Architecting Intelligence*: [Join the early-reader list](https://arizenai.com/architecting-intelligence/?ref=gh-b1#book-signup)
+
 Most AI tutorials stop at a Jupyter Notebook. This project starts there, but quickly moves into production engineering. You will build **The AI Codebase Analyst**: an autonomous agent that ingests a local code repository, understands the file structure, and answers complex queries about the code via an interactive UI.
 
 ### The "Lab" vs. The "Textbook"
