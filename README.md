@@ -93,7 +93,7 @@ You are not building alone.
 ---
 
 ## License
-This project is open-source (MIT). Feel free to fork it, break it, and rebuild it.
+The code is open-source under the [MIT License](LICENSE). The course materials (`curriculum/` and `diagrams/`) are licensed under [CC BY 4.0](LICENSE-CONTENT): share and adapt them, including to run the course with your own team, with credit. Feel free to fork it, break it, and rebuild it.
 
 **Built by [AI Builders Group](https://abg.arizenai.com/)**  
 *Architecting the future of AI Agents.*
