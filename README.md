@@ -30,6 +30,8 @@ We define "Production-Ready" as **Stateful, Reliable, and Observable.**
 
 The course is divided into 4 sprints. You can find the detailed instructions for each lesson in the `/curriculum` folder.
 
+Running this with a team? See the [team guide](curriculum/RUN_IT_WITH_YOUR_TEAM.md).
+
 **Module 1: The Core Engine**
 *   **Lesson 1:** Professional Workspace Setup & Observability
 *   **Lesson 2:** The Agent as a State Machine (LangGraph)
